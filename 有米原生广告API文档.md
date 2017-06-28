@@ -10,6 +10,9 @@
 * v1.4.1 - 修改[请求广告](#请求广告)和[效果监控上报](#效果监控上报)的文字说明。
 * v1.4.2 - 参数列表修改；添加AppVersion参数。
 * v1.4.3 - 修改deeplink跳转的说明。
+* v1.4.4 - 增加[重要提醒](#重要提醒)，reqid调整为非必要参数。
+
+
 
 
 
@@ -18,6 +21,19 @@
 本文档作为贵司与有米平台间进行对接的指引文档。
 
 在接入API之前，请贵司登录有米开发者后台[http://app.youmi.net](http://app.youmi.net/)，在开发者后台创建好App，并设置好所需的广告位。在创建好App后可以获得对应的appid，在后续的所有API流程中，均需要依靠该appid作授权认证。
+
+
+
+## 重要提醒
+
+针对iOS平台请务必支持`URI唤醒`逻辑。Android平台请务必支持`Intent唤醒`逻辑、`下载完成监控`逻辑与`安装完成监控`逻辑。
+
+相关链接：
+
+* [效果监控上报](#效果监控上报)
+* [iOS点击跳转到落地页的逻辑](#ios点击跳转到落地页的逻辑)
+* [Android点击跳转到逻辑页的逻辑](#android点击跳转到逻辑页的逻辑)
+
 
 
 
@@ -57,7 +73,7 @@ Authorization: Bearer <Token>
 | reqtime     | string | 是    | 发起请求的Unix时间戳，精确到秒。                       |
 | slotid      | string | 是    | 所需的广告位ID。                                |
 | adcount     | string | 是    | 所需要的广告数，不填默认为1，实际返回的广告数小于等于adcount。      |
-| reqid       | string | 是    | 这次请求的唯一id。                               |
+| reqid       | string | 否    | 这次请求的唯一id，可以是一段随机字符串或UUID，有米不持有这个参数。     |
 | idfa        | string | 是    | iOS设备的IDFA，明文不加密；iOS必须填写。                |
 | brand       | string | 是    | 制造厂商,如“apple”“Samsung”“Huawei“。          |
 | model       | string | 是    | 型号, 如”iphoneA1530”。                      |
@@ -239,12 +255,12 @@ Authorization: Bearer <Token>
 
 **参数说明：**
 
-| 参数       | 说明              |
-| -------- | --------------- |
-| show     | 曝光监控。           |
-| click    | 点击监控。           |
-| download | 仅安卓平台使用，下载完成监控。 |
-| install  | 仅安卓平台使用，安装完成。   |
+| 参数       | 说明                |
+| -------- | ----------------- |
+| show     | 曝光监控。             |
+| click    | 点击监控。             |
+| download | 仅`安卓`平台使用，下载完成监控。 |
+| install  | 仅`安卓`平台使用，安装完成监控。 |
 
 track字段的结构大致如下：
 
