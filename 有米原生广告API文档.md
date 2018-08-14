@@ -2,19 +2,7 @@
 
 #### 版本说明
 
-* v1.0 - 第一版。
-* v1.1 - 增加针对Android的适配。
-* v1.2 - 参数列表修改；返回值参数样例修改；修改[效果监控上报](#效果监控上报)的文字说明。
-* v1.3 - [返回值参数列表](#返回值参数列表)中广告id调整为string类型；slotid调整为string类型；页面内link修改。
-* v1.4 - [请求参数列表（GET）](#请求参数列表（GET）)增加SIM卡参数发送； [效果监控上报](#效果监控上报)增加download和install两个参数。
-* v1.4.1 - 修改[请求广告](#请求广告)和[效果监控上报](#效果监控上报)的文字说明。
-* v1.4.2 - 参数列表修改；添加AppVersion参数。
-* v1.4.3 - 修改deeplink跳转的说明。
-* v1.4.4 - 增加[重要提醒](#重要提醒)，reqid调整为非必要参数。
-
-
-
-
+* v2.0 - 第二版（不兼容v1.x）。
 
 #### 文档说明
 
@@ -61,43 +49,141 @@ Authorization: Bearer <Token>
 
 | 平台      | URL                                      |
 | ------- | ---------------------------------------- |
-| iOS     | [https://native.umapi.cn/ios/v1/oreq](https://native.umapi.cn/ios/v1/oreq) |
-| Android | [https://native.umapi.cn/aos/v1/oreq](https://native.umapi.cn/aos/v1/oreq) |
+| iOS/Android     | [https://native.umapi.cn/v2/oreq](https://native.umapi.cn/v2/oreq)|
 
 
 
-#### 请求参数列表（GET）
+#### 请求参数格式要求
+	1. 使用 HTTP POST 方法；
+	2. 数据格式使用 JSON；
+	3. 设置 HTTP 头部字段 Content-Type 值为 application/json；
+
+
+
+#### 请求参数列表
 
 | 字段          | 类型     | 必须   | 描述                                       |
 | ----------- | ------ | ---- | ---------------------------------------- |
-| reqtime     | string | 是    | 发起请求的Unix时间戳，精确到秒。                       |
-| slotid      | string | 是    | 所需的广告位ID。                                |
-| adcount     | string | 是    | 所需要的广告数，不填默认为1，实际返回的广告数小于等于adcount。      |
-| reqid       | string | 否    | 这次请求的唯一id，可以是一段随机字符串或UUID，有米不持有这个参数。     |
+| device     | object | 是    | 设备信息，参数见[device](#参数device)                       |
+| app      | object | 是    | 应用信息，参数见[app](#参数app)                                |
+| user     | object | 是    | 用户信息，参数见[user](#参数user) |
+| content       | object | 否    | 相关内容信息，参数见[content](#参数content)|
+| context        | object | 是    | 此次请求信息，参数见[context](#参数context)|
+| imps       | array | 是    | 广告位信息，参数见[imp](#参数imp)|
+
+
+##### 参数device
+
+| 字段          | 类型     | 必须   | 描述                                       |
+| ----------- | ------ | ---- | ---------------------------------------- |
 | idfa        | string | 是    | iOS设备的IDFA，明文不加密；iOS必须填写。                |
-| brand       | string | 是    | 制造厂商,如“apple”“Samsung”“Huawei“。          |
-| model       | string | 是    | 型号, 如”iphoneA1530”。                      |
+| brand       | string | 是    | 制造厂商,如"apple", "Samsung", "Huawei"。          |
+| model       | string | 是    | 型号, 如"iphoneA1530"。                      |
 | mac         | string | 是    | 设备的mac地址，明文不加密。                          |
 | imei        | string | 是    | 设备的imei码，明文不加密; Android必须填写。             |
-| androidid   | string | 是    | 设备的android id，明文不加密; Android必须填写。        |
+| android_id  | string | 是    | 设备的android id，明文不加密; Android必须填写。        |
 | imsi        | string | 是    | 设备的imsi id, 明文不加密; Android必须填写。          |
-| ip          | string | 是    | 当前请求的IP地址，必须为手机客户端发起的IP地址                |
+| ip          | string | 是    | 当前请求的IP地址，必须为手机客户端发起的IP地址           |
 | ua          | string | 是    | UserAgent。                               |
 | os          | string | 是    | 操作系统（android，ios）。                       |
 | osv         | string | 是    | 操作系统描述的系统版本号。                            |
-| appversion  | string | 是    | 应用版本号。会根据版本号投放对应的广告。                     |
-| conntype    | string | 是    | 网络类型，空=无，0=未知/其他，1=wifi，2=2g，3=3g，4=4g，5=5g。 |
-| carrier     | string | 是    | 网络运营商，空=无，0=未知/其他，1=wifi，2=移动，3=联通，4=电信。 |
-| pk          | string | 是    | 安卓为App的包名，iOS为App的BundleIdentifier。      |
-| countrycode | string | 是    | 用户设置的国家编码，如CN。                           |
-| language    | string | 否    | 用户设置的语言，如zh。                             |
-| gender      | string | 否    | 性别，M=男性，F=女性。                            |
-| age         | string | 否    | 年龄，如24。                                  |
-| cont_title  | string | 否    | 内容的标题。                                   |
-| cont_kw     | string | 否    | 内容的关键词，多个关键词用逗号分隔。                       |
+| connection_type    | int | 是    | 网络类型，0=未知/其他，1=wifi，2=2g，3=3g，4=4g, 5=5g。 |
+| carrier     | int | 是    | 网络运营商，0=未知/其他，1=wifi，2=移动，3=联通，4=电信。 |
+| country_code | string | 是    | 用户设置的国家编码，如CN。                           |
+| language    | string | 否    | 语言，符合ISO639-1规范的共两个字符的语言代号，中文为"zh".https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes                        |
 
-*注：建议使用标准URL函数来进行参数封装（会保障所有参数都经过URLEncode），以免出现参数混乱的问题。*
+##### 参数app
 
+| 字段          | 类型     | 必须   | 描述                                       |
+| ----------- | ------ | ---- | ---------------------------------------- |
+| ver        | string | 是    | 应用版本号。会根据版本号投放对应的广告。    |
+| bundle       | string | 是    | 安卓为App的包名，iOS为App的BundleIdentifier。   |
+
+##### 参数user
+
+| 字段          | 类型     | 必须   | 描述                                       |
+| ----------- | ------ | ---- | ---------------------------------------- |
+| gender        | int | 否    | 性别，0=未知，1=男性，2=女性。 |
+| age       | int | 否    | 年龄，如24。  |
+
+##### 参数content
+
+| 字段          | 类型     | 必须   | 描述                                       |
+| ----------- | ------ | ---- | ---------------------------------------- |
+| title        | string | 否    | 内容的标题。 |
+| keywords       | string | 否    |内容的关键词，多个关键词用逗号分隔。|
+| cat1       | string | 否    | 内容所在的一级目录分类。  |
+| cat2       | string | 否    | 内容所在的二级目录分类。 |
+| url       | string | 否    | 内容的 URL  |
+| author       | string | 否    | 作者名称  |
+
+##### 参数context
+
+| 字段          | 类型     | 必须   | 描述                                       |
+| ----------- | ------ | ---- | ---------------------------------------- |
+| req_time        | int | 是    | 当前timestamp |
+| req_id       |  string | 是    | 请求唯一id |
+
+##### 参数imp
+
+| 字段          | 类型     | 必须   | 描述                                       |
+| ----------- | ------ | ---- | ---------------------------------------- |
+| id        | string | 是    | 广告位序号 |
+| slot_id       |  string | 是    | 广告位 ID |
+
+####请求参数示例
+
+```json
+{
+  "device": {
+    "idfa": "",
+    "brand": "Samsung",
+    "model": "SM-G9650",
+    "mac": "00:11:22:33:44:55",
+    "imei": "355102090311916",
+    "android_id": "1j4k56kdd930dskt",
+    "imsi": "460023192787105",
+    "ip": "8.8.8.8",
+    "ua": "Mozilla/5.0 (Linux; U; Android 4.0.3; ko-kr; LG-L160L Build/IML74K) AppleWebkit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30",
+    "os": "android",
+    "osv": "8.0.0",
+    "connection_type": 1,
+    "carrier": 1,
+    "country_code": "CN",
+    "language": "zh"
+  },
+  "app": {
+    "ver": "1.0",
+    "bundle": "com.example.myapp"
+  },
+  "user": {
+    "gender": 1,
+    "age": 25
+  },
+  "content": {
+    "title": "iPhoneX测评",
+    "keywords": "iphoneX, 测评",
+    "cat1": "电商",
+    "cat2": "手机",
+    "url": "https://xxx.com/ds/iphonex",
+    "author": "someone"
+  },
+  "context": {
+    "req_time": 1533523510,
+    "req_id": "f916892b7f624ae280d69cefc55a20cf"
+  },
+  "imps": [
+    {
+      "id": "1",
+      "slot_id": "9527"
+    },
+    {
+      "id": "2",
+      "slot_id": "9528"
+    }
+  ]
+}
+```
 
 
 #### 返回值参数列表
@@ -156,7 +242,7 @@ Authorization: Bearer <Token>
 | 字段          | 类型       | 说明                                     |
 | ----------- | -------- | -------------------------------------- |
 | storeid     | string   | 应用在市场上的storeid，对于iOS应用，该字段为应用的iTunesID |
-| bid         | string   | 应用的包名，对于iOS应用，该字段为应用的BundleIdentifier  |
+| bundle      | string   | 应用的包名，对于iOS应用，该字段为应用的BundleIdentifier  |
 | description | string   | 应用在市场上的描述信息。                           |
 | size        | string   | 应用的大小，语义化表示方法。如：53M。                   |
 | screenshot  | string[] | 应用在市场上提供的截图，该字段为一组URL的List。            |
