@@ -1,4 +1,4 @@
-# 有米原生广告API文档
+# 有米原生广告 Server API 文档
 
 #### 版本说明
 
@@ -198,21 +198,21 @@ Authorization: Bearer <Token>
 
 ##### 参数Ad
 
-| 字段        | 类型      | 说明                                       |
-| --------- | ------- | ---------------------------------------- |
-| id        | string  | 广告的id，string类型。                          |
-| slotid    | string  | 匹配的广告位id，string类型。                       |
-| name      | string  | 广告的名字。                                   |
-| icon      | string  | 广告的ICON图标，1:1的方形图。                       |
+| 字段      | 类型    | 说明                                                         |
+| --------- | ------- | ------------------------------------------------------------ |
+| id        | string  | 广告的id，string类型。                                       |
+| impid     | string  | 匹配的imp的id。                                              |
+| slotid    | string  | 匹配的广告位id，string类型。                                 |
+| name      | string  | 广告的名字。                                                 |
+| icon      | string  | 广告的ICON图标，1:1的方形图。                                |
 | pic       | Pic[]   | 广告图片素材列表，返回的图片素材数量与广告位所提供的图片数量一致，即广告位提供为单图广告位，则pic数组里仅有一个元素。参见[参数Pic](#参数pic) |
-| slogan    | string  | 广告标题，一般字数较少。部分广告位没有广告标题只有广告语。            |
-| subslogan | string  | 广告语，一般字数较多。                              |
+| slogan    | string  | 广告标题，一般字数较少。部分广告位没有广告标题只有广告语。   |
+| subslogan | string  | 广告语，一般字数较多。                                       |
 | url       | string  | iOS平台：点击跳转到的落地页；Android平台：APP广告的下载地址或者WAP广告的页面地址。 |
 | uri       | string  | iOS为应用的URLScheme，Android为应用的URI。用于直接打开外部App的某一指定落地页（如电商App直接打开商品详情页）。 |
-| pt        | int     | 广告的类型（ 0：APP广告；1：WAP广告）。                 |
-| track     | Track[] | 广告监测列表，参见[参数Track](#参数track)。            |
+| pt        | int     | 广告的类型（0：APP广告；1：WAP广告）。                       |
+| track     | Track[] | 广告监测列表，参见[参数Track](#参数track)。                  |
 | app       | App{}   | App广告的应用信息，参见[参数App](#参数app)。***注意：即便是App类型的广告，该字段也有可能为空值。*** |
-| ext       | Ext{}   | 开源lib所使用的额外参数，可以不用理会。                    |
 
 
 
@@ -248,19 +248,6 @@ Authorization: Bearer <Token>
 | screenshot  | string[] | 应用在市场上提供的截图，该字段为一组URL的List。            |
 | score       | float    | 应用的市场评分，评分从0.0~5.0。                    |
 | category    | string   | 应用的分类，文字表示法。如：游戏。                      |
-
-
-
-##### 参数Ext
-
-| 字段    | 类型   | 说明                            |
-| ----- | ---- | ----------------------------- |
-| io    | int  | 浏览器打开方式（0：内部浏览器（默认）；1：外部浏览器）。 |
-| delay | int  | 关闭按钮延迟显示时间 单位：秒。              |
-| sal   | int  | 是否显示《广告》标识，0:不显示；1:显示。        |
-| pl    | int  | 是否显示平台标识，0:不显示；1:显示。          |
-
-
 
 ##### 返回值样例
 
@@ -316,12 +303,6 @@ Authorization: Bearer <Token>
         ],
         "score": 4.5,
         "category": "游戏"
-      },
-      "ext": {
-        "io": 0,
-        "delay": 1,
-        "sal": 0, 
-        "pl": 0 
       }
     },
     {
