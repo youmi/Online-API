@@ -202,8 +202,7 @@ Authorization: Bearer <Token>
 | --------- | ------- | ------------------------------------------------------------ |
 | id        | string  | 广告的id，string类型。                                       |
 | impid     | string  | 匹配的imp的id。                                              |
-| slotid    | string  | 匹配的广告位id，string类型。                                 |
-| name      | string  | 广告的名字。                                                 |
+| slot_id   | string  | 匹配的广告位id，string类型。                                 |
 | icon      | string  | 广告的ICON图标，1:1的方形图。                                |
 | pic       | Pic[]   | 广告图片素材列表，返回的图片素材数量与广告位所提供的图片数量一致，即广告位提供为单图广告位，则pic数组里仅有一个元素。参见[参数Pic](#参数pic) |
 | slogan    | string  | 广告标题，一般字数较少。部分广告位没有广告标题只有广告语。   |
@@ -258,7 +257,8 @@ Authorization: Bearer <Token>
   "ad": [
     {
       "id": "55",
-      "slotid": 1,
+      "impid": "1",
+      "slot_id": "7441",
       "name": "皇室战争",
       "icon": "https://demo.youmi.net/icon-55.png",
       "pic": [{
