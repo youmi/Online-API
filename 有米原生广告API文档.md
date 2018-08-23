@@ -254,6 +254,7 @@ Authorization: Bearer <Token>
 ```json
 {
   "c": 0,
+  "msg": "",
   "rsd": "TADS234211435343f",
   "ad": [
     {
