@@ -214,7 +214,7 @@ Authorization: Bearer <Token>
 | subslogan | string  | 广告语，一般字数较多。                                       |
 | url       | string  | iOS平台：点击跳转到的落地页；Android平台：APP广告的下载地址或者WAP广告的页面地址。 |
 | uri       | string  | iOS为应用的URLScheme，Android为应用的URI。用于直接打开外部App的某一指定落地页（如电商App直接打开商品详情页）。 |
-| pt        | int     | 广告的类型（0：APP广告；1：WAP广告）。                       |
+| pt        | int     | 广告的类型（2：APP广告；1：WAP广告）。                       |
 | track     | Track[] | 广告监测列表，参见[参数Track](#参数track)。                  |
 | app       | App{}   | App广告的应用信息，参见[参数App](#参数app)。***注意：即便是App类型的广告，该字段也有可能为空值。*** |
 
