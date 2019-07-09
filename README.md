@@ -84,19 +84,20 @@ curl -X POST \
   https://dsp-sg.miadx.net/v1/ol/ads \
   -H 'cache-control: no-cache' \
   -H 'content-type: application/json' \
-  -d '{
-            "client_info":{
-                    "ip":"192.168.1.3",
-                    "ua":"Mozilla/5.0 (Linux; Android 7.0.0;) AppleWebKit/527 (KHTML, like Gecko) Chrome/69.0.0.0 Mobile Safari/5"
-            },
-            "slots": [
-                {
-                    "uid": 140488,
-                    "aid": 1223867,
-                    "slot_id": 10616,
-                    "template_id": 11001
-                }
-    		]
+  -d \
+'{
+    "client_info":{
+            "ip":"192.168.1.3",
+            "ua":"Mozilla/5.0 (Linux; Android 7.0.0;) AppleWebKit/527 (KHTML, like Gecko) Chrome/69.0.0.0 Mobile Safari/5"
+    },
+    "slots": [
+        {
+            "uid": 140488,
+            "aid": 1223867,
+            "slot_id": 10616,
+            "template_id": 11001
+        }
+    ]
 }'
 ```
 
