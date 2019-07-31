@@ -1,10 +1,10 @@
 # Online API
 
-\*API 只能通过 HTTP 访问，并以 JSON 格式返回数据。
+\*The API is only accessible by HTTP GET and returns data in JSON format.
 
 ## API Request
 
-### API 请求说明
+### API Request Description
 
     URL: https://dsp-sg.miadx.net/v1/ol/ads
     Method: POST
@@ -14,68 +14,68 @@
 
 #### Request
 
-| 参数        | 类型                                 | 必须 | 样例 | 描述                                     |
+| Parameter        | Type                                 | Mandatory | Example | Description                                     |
 | ----------- | ------------------------------------ | ---- | ---- | ---------------------------------------- |
-| client_info | <a href="#ClientInfo">ClientInfo</a> | Y    |      | 客户端基本信息                           |
-| slots       | []<a href="#Slot">Slot</a>           | Y    |      | 广告位基本信息，一次请求最多 10 个广告位 |
+| client_info | <a href="#ClientInfo">ClientInfo</a> | Y    |      | Client basic information                           |
+| slots       | []<a href="#Slot">Slot</a>           | Y    |      | Basic placement information, requesting up to 10 ad placements at a time |
 
 #### <a name="ClientInfo">ClientInfo</a>
 
-| 参数     | 类型   | 必须 | 样例                                                   | 描述                                                              |
+| Parameter     | Type   | Mandatory | Example                                                   | Description                                                              |
 | -------- | ------ | ---- | ------------------------------------------------------ | ----------------------------------------------------------------- |
-| ip       | String | Y    | 184.34.21.5                                            | 客户端 IP                                                         |
-| ua       | String | Y    | Mozilla/5.0 (Linux;) (KHTML) Chrome/69 Mobile Safari/5 | 客户端 user agent 字符串                                          |
-| net_type | String | N    | NET_TYPE_WIFI                                          | 连接类型， [NET_TYPE_WIFI, NET_TYPE_2G, NET_TYPE_3G, NET_TYPE_4G] |
+| ip       | String | Y    | 184.34.21.5                                            | Client IP                                                         |
+| ua       | String | Y    | Mozilla/5.0 (Linux;) (KHTML) Chrome/69 Mobile Safari/5 | Client user agent string                                          |
+| net_type | String | N    | NET_TYPE_WIFI                                          | Network Type， [NET_TYPE_WIFI, NET_TYPE_2G, NET_TYPE_3G, NET_TYPE_4G] |
 
 #### <a name="Slot">Slot</a>
 
-| 参数        | 类型    | 必须 | 样例   | 描述            |
+| Parameter        | Type    | Mandatory | Example   | Description            |
 | ----------- | ------- | ---- | ------ | --------------- |
-| uid         | Integer | Y    | 1257   | 媒体帐号唯一 id |
-| aid         | Integer | Y    | 21541  | 媒体唯一 id     |
-| slot_id     | Integer | Y    | 356214 | 广告位唯一 id   |
-| template_id | Integer | Y    | 15262  | 广告模板唯一 id |
+| uid         | Integer | Y    | 1257   | Account unique id     |
+| aid         | Integer | Y    | 21541  | Media unique id       |
+| slot_id     | Integer | Y    | 356214 | Placement unique id   |
+| template_id | Integer | Y    | 15262  | Ad template unique id |
 
 ## Response (JSON)
 
 #### Response
 
-| 参数     | 类型                           | 描述     |
-| -------- | ------------------------------ | -------- |
-| code     | Integer                        | 错误码   |
-| msg      | String                         | 错误信息 |
-| slot_ads | []<a href="#SlotAd">SlotAd</a> | 广告信息 |
+| Parameter     | Type                           | Description     |
+| -------- | ------------------------------ | ---------------|
+| code     | Integer                        | Error code     |
+| msg      | String                         | Error message  |
+| slot_ads | []<a href="#SlotAd">SlotAd</a> | Ad information |
 
 #### <a name="SlotAd">SlotAd</a>
 
-| 参数    | 类型                   | 必须 | 样例     | 描述          |
-| ------- | ---------------------- | ---- | -------- | ------------- |
-| slot_id | Integer                | Y    | 84610400 | 广告位唯一 id |
-| ads     | []<a href="#Ad">Ad</a> | Y    |          | 广告信息      |
+| Parameter    | Type                   | Mandatory | Example     | Description          |
+| ------- | ---------------------- | ---- | -------- | ------------------- |
+| slot_id | Integer                | Y    | 84610400 | Placement unique id |
+| ads     | []<a href="#Ad">Ad</a> | Y    |          | Ad information      |
 
 #### <a name="Ad">Ad</a>
 
-| 参数          | 类型                                     | 必须 | 样例   | 描述               |
+| Parameter     | Type                               | Mandatory | Example   | Description        |
 | ------------- | ---------------------------------------- | ---- | ------ | ------------------ |
-| oid           | Integer                                  | Y    | 158462 | 广告唯一 id        |
-| creatives     | <a href="#Creatives">Creatives</a>       | Y    |        | 素材信息           |
-| tracking_urls | <a href="#TrackingUrls">TrackingUrls</a> | Y    |        | 包含展示及跳转链接 |
+| oid           | Integer                                  | Y    | 158462 | Ad unique id         |
+| creatives     | <a href="#Creatives">Creatives</a>       | Y    |        | Creative information |
+| tracking_urls | <a href="#TrackingUrls">TrackingUrls</a> | Y    |        | Includes impression and click links   |
 
 #### <a name="Creatives">Creatives</a>
 
-| 参数             | 类型   | 必须 | 样例                               | 描述           |
-| ---------------- | ------ | ---- | ---------------------------------- | -------------- |
-| img_url          | String | Y    | https://dsp-sg.miadx.net/v1/ol/ads/a.png | 图片链接       |
-| landing_page_url | String | Y    | https://dsp-sg.miadx.net/v1/ol/ads/go    | 点击跳转落地页 |
+| Parameter        | Type   | Mandatory | Example                       | Description           |
+| ---------------- | ------ | --------- | ----------------------------- | --------------------- |
+| img_url          | String | Y    | https://dsp-sg.miadx.net/v1/ol/ads/a.png | Image link       |
+| landing_page_url | String | Y    | https://dsp-sg.miadx.net/v1/ol/ads/go    | Click to jump to the landing page |
 
 #### <a name="TrackingUrls">TrackingUrls</a>
 
-| 参数           | 类型     | 必须 | 样例                                            | 描述                                       |
-| -------------- | -------- | ---- | ----------------------------------------------- | ------------------------------------------ |
-| impression_url | []String | Y    | [https://dsp-sg.miadx.net/v1/ol/ads/log?f=ol&r=ChxDT] | 展示回调地址，在广告展示完后必须进行回调。 |
-| click_url      | []String | Y    | [https://dsp-sg.miadx.net/v1/ol/ads/log?f=ol&r=mc291] | 点击回调地址，在点击广告后必须进行回调。   |
+| Parameter      | Type     | Mandatory | Example                                         | Description                                         |
+| -------------- | -------- | ----------| ----------------------------------------------- | ------------------------------------------ |
+| impression_url | []String | Y    | [https://dsp-sg.miadx.net/v1/ol/ads/log?f=ol&r=ChxDT] | Impression callback address, and callback must be made after the ad is displayed. |
+| click_url      | []String | Y    | [https://dsp-sg.miadx.net/v1/ol/ads/log?f=ol&r=mc291] | Click callback address , and callback must be made after the ad is clicked.  |
 
-### 样例:
+### Example:
 
 #### Request
 
