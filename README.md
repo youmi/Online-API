@@ -26,6 +26,7 @@
 | ip       | String | Y    | 184.34.21.5                                            | Client IP                                                         |
 | ua       | String | Y    | Mozilla/5.0 (Linux;) (KHTML) Chrome/69 Mobile Safari/5 | Client user agent string                                          |
 | net_type | String | N    | NET_TYPE_WIFI                                          | Network Type， [NET_TYPE_WIFI, NET_TYPE_2G, NET_TYPE_3G, NET_TYPE_4G] |
+| ifa | String | N | device id, idfa or gaid |
 
 #### <a name="Slot">Slot</a>
 
