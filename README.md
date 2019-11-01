@@ -72,7 +72,8 @@
 | img_url          | String | Y    | https://dsp-sg.miadx.net/v1/ol/ads/a.png | Image of the promoted product       |
 | icon_url          | String | N    | https://dsp-sg.miadx.net/v1/ol/ads/a.png | Icon of the promoted product       |
 | video_url          | String | N    | https://dsp-sg.miadx.net/v1/ol/ads/a.mp4 | Video of the promoted product       |
-| rating          | Integer | Y    | 4.8 | Image link       |
+| rating          | Integer | Y    | 4.8 | The App’s average rating on the Appstore
+/ PlayStore       |
 | ctatext          | String | Y    | install | CTA description       |
 | landing_page_url | String | Y    | https://dsp-sg.miadx.net/v1/ol/ads/go    | Click to jump to the landing page |
 
